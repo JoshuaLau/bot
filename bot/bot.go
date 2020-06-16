@@ -7,10 +7,20 @@ import (
 	"strings"
 )
 
-var BotID string
-var bot *discordgo.Session
+var (
+	BotID string
+	bot *discordgo.Session
+	commandToText map[string]string
+)
 
 func Start() {
+	commandToText = map[string]string{
+		"cc": "coding challenge",
+		"interview": "interview",
+		"offer": "offer",
+		"rejection": "rejection",
+		"reject": "rejection",
+	}
 	fmt.Println("Starting session..")
 	bot, err := discordgo.New("Bot " + config.Token)
 	HandleError(err)
@@ -40,13 +50,23 @@ func MessageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	text := strings.Split(m.Content, " ")
 	if len(text) == 1 {
+		// add info about the command if its the only thing in the message
 		return
 	}
 
 	command := text[0][1:]
-
 	argument := strings.Join(text[1:], " ")
-	_, _ = s.ChannelMessageSend(m.Message.ChannelID, argument)
+	formattedCommand := commandToText[command]
+
+	if formattedCommand == "" {
+		return
+	}	
+	if _, ok := config.Companies[argument]; !ok {
+		s.ChannelMessageSend(m.Message.ChannelID, fmt.Sprintf("u idiot **%s** is not in the company list idiot!", argument))
+		return
+	}
+	botText := fmt.Sprintf("Added **%s** for **%s**.", formattedCommand, argument)
+	_, _ = s.ChannelMessageSend(m.Message.ChannelID, botText)
 
 }
 

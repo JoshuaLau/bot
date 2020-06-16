@@ -1,0 +1,155 @@
+Affirm
+Airbnb
+Akuna Capital
+Amazon
+Appian
+Apple
+AppLovin
+Argo AI
+Asana
+AT&T
+Atlassian
+Belvedere Trading
+Benchling
+Betterment
+Blizzard
+Bloomberg
+Bookbub
+Box
+Broadway
+C3.ai
+Cadre
+Capital One
+Charles Schwab
+Chick-fil-A
+Cisco
+Citadel
+Citrix
+Clever
+Clicktime
+CME Group
+Coinbase
+Confluent
+Coursera
+Crowdstrike
+Databricks
+Datadog
+DE Shaw
+DeepMind
+Dell
+Dropbox
+DRW
+Duolingo
+Ebay
+Etsy
+Expedia
+Facebook
+Fivestars
+Flatiron Health
+Flexport
+Ford
+Front
+Gallup
+Garmin
+Github
+Goldman Sachs
+Google
+Gusto
+Handshake
+HBO
+Honey
+HRT
+Hubspot
+IBM
+IMC
+Intel
+Intersystems
+Intuit
+Jane Street
+JP Morgan
+Kabbage
+Kleiner Perkins Engineering Fellowship
+Liberty Mutual
+Lime
+LinkedIn
+LiveRamp
+Lob
+Lucid
+Lyft
+Mathworks
+McDonalds
+McKinsey
+Metlife
+Metova
+Micro Focus
+Microsoft
+MongoDB
+Morgan Stanley
+Mozilla
+NBCUniversal
+Neeva
+Nerdwallet
+Nordstrom
+Okta
+Optiver
+Oscar Health
+Palantir
+Paycom
+Paypal
+Philips
+Pimco
+Pinterest
+Plaid
+Playstation
+pMD
+Pocket Gems
+Poshmark
+Postmates
+Pure Storage
+Qualcomm
+Qualtrics
+Quora
+Quorum
+Reddit
+Redfin
+RetailMeNot
+Riot Games
+Robinhood
+Roblox
+Rubrik
+Salesforce
+Samsara
+SAS
+SigOpt
+Slack
+Snap
+Sonos
+Splunk
+Spreetail
+Squarespace
+Stripe
+Sumo Logic
+SurveyMonkey
+Tableau
+The Trade Desk
+Thumbtack
+Toast
+TripAdvisor
+Twilio
+Twitch
+Twitter
+Twitter Academy
+Two Sigma
+Uber
+USA Trucks
+Valkyrie
+Vanguard
+Vimeo
+Virtu Financial
+Visa
+Wayfair
+WillowTree
+Wish
+Wolverine Trading
+Xtern
+Zillow

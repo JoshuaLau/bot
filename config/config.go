@@ -4,11 +4,16 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"os"
+	"log"
+	"bufio"
+	"strings"
 )
 
 var (
 	Token string
 	BotPrefix string
+	Companies map[string]struct{} = make(map[string]struct{})
 
 	config *configStruct
 )
@@ -28,7 +33,6 @@ func ReadConfig() error {
 		return err
 	}
 
-	fmt.Println(string(file))
 	err = json.Unmarshal(file, &config)
 
 	if err != nil {
@@ -39,5 +43,23 @@ func ReadConfig() error {
 	Token = config.Token
 	BotPrefix = config.BotPrefix
 
+	fmt.Println("Reading from companies text file...")
+
+	companiesFile, err := os.Open("./companies.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer companiesFile.Close()
+
+	scanner := bufio.NewScanner(companiesFile)
+	for scanner.Scan() {
+		Companies[strings.ToLower(scanner.Text())] = struct{}{}
+	}
+
+	if err := scanner.Err(); err != nil {
+		log.Fatal(err)
+	}
+
 	return nil
 }
+
