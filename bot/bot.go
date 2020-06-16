@@ -2,9 +2,11 @@ package bot
 
 import (
 	"../config"
+	"../autocomplete"
 	"fmt"
 	"github.com/bwmarrin/discordgo"
 	"strings"
+	"log"
 )
 
 var (
@@ -40,17 +42,13 @@ func Start() {
 
 func MessageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 
-	if !strings.HasPrefix(m.Content, config.BotPrefix) { 
-		return
-	}
-
-	if m.Author.Bot {
+	if m.Author.Bot || !strings.HasPrefix(m.Content, config.BotPrefix) { 
 		return
 	}
 
 	text := strings.Split(m.Content, " ")
 	if len(text) == 1 {
-		// add info about the command if its the only thing in the message
+		// TODO: add info about the command if its the only thing in the message
 		return
 	}
 
@@ -62,7 +60,12 @@ func MessageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}	
 	if _, ok := config.Companies[argument]; !ok {
-		s.ChannelMessageSend(m.Message.ChannelID, fmt.Sprintf("u idiot **%s** is not in the company list idiot!", argument))
+		closestNum, closestCompany := autocomplete.Closest(argument, config.Companies)
+		if closestNum >= 0.75 {
+			s.ChannelMessageSend(m.Message.ChannelID, fmt.Sprintf("Added **%s** for **%s**. btw its spelled **%s** bruh. %f", formattedCommand, closestCompany, closestCompany, closestNum))
+		} else {
+			s.ChannelMessageSend(m.Message.ChannelID, fmt.Sprintf("u idiot **%s** is not in the company list idiot! %f", argument, closestNum))
+		}
 		return
 	}
 	botText := fmt.Sprintf("Added **%s** for **%s**.", formattedCommand, argument)
@@ -72,6 +75,6 @@ func MessageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 func HandleError(err error) {
 	if err != nil {
-		fmt.Println("Error: " + err.Error())
+		log.Fatal(err)
 	}
 }
