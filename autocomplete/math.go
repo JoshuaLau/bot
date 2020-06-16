@@ -12,10 +12,10 @@ func Closest(c string, companies map[string]struct{}) (float64, string) {
 		for i := 0; i < shorter; i++ {
 			if c[i] == company[i] {
 				numMatches++
-				cDict[string(c[i])]++
-				companyDict[string(company[i])]++
 			} else {
 				numMismatches++
+				cDict[string(c[i])]++
+				companyDict[string(company[i])]++
 			}
 		}
 		for i := shorter; i < len(c); i++ {
@@ -25,16 +25,23 @@ func Closest(c string, companies map[string]struct{}) (float64, string) {
 			companyDict[string(company[i])]++
 		}
 
-		errors := 0.0
+		actualErrors := 0.0
+		typos := 0.0
 		for k, v := range cDict {
 			if _, ok := companyDict[k]; ok {
-				companyDict[k] -= v
+				if companyDict[k] > 0 && math.Abs(float64(companyDict[k] - v)) < 2 {
+					companyDict[k] = 0
+					typos += math.Abs(float64(companyDict[k] - v))
+				} else {
+					companyDict[k] -= v
+					typos += math.Abs(float64(companyDict[k]))
+				}
 			}
 		}
 		for _, v := range companyDict {
-			errors += math.Abs(float64(v))
+			actualErrors += math.Abs(float64(v))
 		}
-		currMatch := float64(numMatches) / float64(longer) + (float64(numMismatches) / (float64(numMismatches) + float64(longer) + errors))
+		currMatch := float64(numMatches) / float64(longer) + ((float64(numMismatches) + typos / 2) / (float64(numMismatches) + float64(longer) + actualErrors))
 		if currMatch > closestMatch {
 			closestMatch = currMatch
 			closestCompany = company
